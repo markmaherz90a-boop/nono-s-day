@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+<meta charset="UTF-8">
+<title>عيد ميلاد نرفانا 💖</title>
+
+<style>
+body {
+    margin: 0;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: Arial;
+    background: linear-gradient(135deg, #ff9a9e, #fad0c4, #a18cd1);
+    overflow: hidden;
+    direction: rtl;
+}
+
+/* الكارت */
+.card {
+    width: 380px;
+    padding: 25px;
+    border-radius: 20px;
+    background: rgba(255,255,255,0.2);
+    backdrop-filter: blur(10px);
+    text-align: center;
+    color: white;
+    box-shadow: 0 0 30px rgba(0,0,0,0.2);
+    position: relative;
+}
+
+/* التوكة */
+.ribbon {
+    position: absolute;
+    top: -15px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 40px;
+}
+
+/* النص */
+.intro {
+    font-size: 18px;
+    margin-bottom: 15px;
+    line-height: 1.6;
+}
+
+/* inputs */
+input, select {
+    width: 90%;
+    padding: 10px;
+    margin: 8px 0;
+    border-radius: 10px;
+    border: none;
+    outline: none;
+    text-align: center;
+}
+
+/* زر */
+button {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 25px;
+    cursor: pointer;
+    background: white;
+    color: #ff4d6d;
+    font-weight: bold;
+    margin-top: 10px;
+}
+
+/* النتيجة */
+.result {
+    margin-top: 15px;
+    display: none;
+    font-size: 18px;
+}
+
+/* ايموجيز */
+.emoji {
+    position: absolute;
+    font-size: 22px;
+    animation: float 6s infinite ease-in-out;
+}
+
+@keyframes float {
+    0% {transform: translateY(0);}
+    50% {transform: translateY(-40px);}
+    100% {transform: translateY(0);}
+}
+</style>
+</head>
+
+<body>
+
+<div class="card">
+
+    <div class="ribbon">🎀</div>
+
+    <!-- 💌 مقدمة -->
+    <div class="intro">
+        💖 إلى نرفانا 💖<br><br>
+        في يومك المميز، أحب أقولك إنك شخص مختلف ومهم جدًا في حياتي ✨<br>
+        وجودك بيضيف فرحة وراحة وابتسامة حقيقية 💫<br><br>
+        النهارده يومك إنتي 🎉
+    </div>
+
+    <input id="name" placeholder="اكتب الاسم 🎁">
+    <input id="age" placeholder="اكتب السن 🎈">
+
+    <button onclick="generate()">اعمل الكارت ✨</button>
+
+    <div class="result" id="result"></div>
+</div>
+
+<!-- 🎵 الأغنية (إنت بتحطها بنفسك) -->
+<audio id="music" loop>
+    <source src="nono's day.mp3" type="audio/mpeg">
+</audio>
+
+<button onclick="toggleMusic()" style="
+position:absolute;
+bottom:20px;
+padding:10px 20px;
+border:none;
+border-radius:20px;
+cursor:pointer;
+">
+🎵 تشغيل/إيقاف الموسيقى
+</button>
+
+<script>
+let music = document.getElementById("music");
+let isPlaying = false;
+
+/* تشغيل الموسيقى */
+function toggleMusic(){
+    if(isPlaying){
+        music.pause();
+        isPlaying = false;
+    } else {
+        music.play();
+        isPlaying = true;
+    }
+}
+
+/* إنشاء الكارت */
+function generate(){
+    let name = document.getElementById("name").value || "نرفانا";
+    let age = document.getElementById("age").value || "المميزة";
+
+    let emojis = ["🎉","🎂","🎈","🧁","✨","🥳","🎁","💖","💫"];
+
+    let msg = `
+        ${emojis[Math.floor(Math.random()*emojis.length)]} عيد ميلاد سعيد يا ${name} 🎉<br><br>
+        🎂 سنك اليوم: ${age}<br><br>
+        💖 كل سنة وإنتي طيبة ومحققة كل أحلامك ✨
+    `;
+
+    let result = document.getElementById("result");
+    result.innerHTML = msg;
+    result.style.display = "block";
+
+    spawnEmojis();
+}
+
+/* ايموجيز طايرة */
+function spawnEmojis(){
+    let emojis = ["🎉","🎂","🎈","🧁","✨","🥳","🎁","💖","💫"];
+
+    for(let i=0;i<15;i++){
+        let e = document.createElement("div");
+        e.classList.add("emoji");
+        e.innerText = emojis[Math.floor(Math.random()*emojis.length)];
+        e.style.left = Math.random()*window.innerWidth + "px";
+        e.style.top = Math.random()*window.innerHeight + "px";
+        document.body.appendChild(e);
+
+        setTimeout(()=>e.remove(),6000);
+    }
+}
+</script>
+
+</body>
+</html>
